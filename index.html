@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankieta Wywiadu Wstępnego - Plan Treningu Zdrowotnego</title>
+    <style>
+        /* Stylizacja CSS */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .radio-group label, .checkbox-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .radio-group input[type="radio"], .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 40px 0;
+        }
+
+        .other-input {
+            margin-top: 10px;
+            padding-left: 20px;
+            display: none;
+        }
+        .other-input input, .other-input textarea {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #responseMessage {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: green;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ankieta Wywiadu Wstępnego</h1>
+        <p style="text-align: center; margin-bottom: 30px;">
+            Proszę o wypełnienie poniższej ankiety, aby pomóc mi w stworzeniu optymalnego i bezpiecznego planu treningowego, dostosowanego do Twoich indywidualnych potrzeb i celów.
+        </p>
+
+        <form id="healthTrainingForm" action="https://formspree.io/f/xldbyedn" method="POST">
+            <h2>Sekcja 1: Dane kontaktowe i podstawowe informacje</h2>
+            <div class="form-group">
+                <label for="name">Imię i nazwisko:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Wiek (lata):</label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+            </div>
+            <div class="form-group">
+                <label>Płeć:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="Mężczyzna" required> Mężczyzna</label>
+                    <label><input type="radio" name="gender" value="Kobieta"> Kobieta</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="height">Wzrost (cm):</label>
+                <input type="number" id="height" name="height" min="50" max="250" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">Waga (kg):</label>
+                <input type="number" id="weight" name="weight" min="10" max="500" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Numer telefonu:</label>
+                <input type="text" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="email">Adres e-mail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <hr>
+
+            <h2>Sekcja 2: Cele treningowe</h2>
+            <div class="form-group">
+                <label>Jaki jest Twój główny cel rozpoczęcia treningów? (Możesz wybrać więcej niż jedną odpowiedź)</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="goal[]" value="Redukcja masy ciała / spalanie tkanki tłuszczowej"> Redukcja masy ciała / spalanie tkanki tłuszczowej</label>
+                    <label><input type="checkbox" name="goal[]" value="Poprawa ogólnej kondycji i wytrzymałości"> Poprawa ogólnej kondycji i wytrzymałości</label>
+                    <label><input type="checkbox" name="goal[]" value="Zwiększenie siły i budowa masy mięśniowej"> Zwiększenie siły i budowa masy mięśniowej</label>
+                    <label><input type="checkbox" name="goal[]" value="Poprawa samopoczucia / redukcja stresu"> Poprawa samopoczucia / redukcja stresu</label>
+                    <label><input type="checkbox" name="goal[]" value="Zwiększenie elastyczności i mobilności"> Zwiększenie elastyczności i mobilności</label>
+                    <label><input type="checkbox" name="goal[]" value="Przygotowanie do konkretnego wydarzenia sportowego"> Przygotowanie do konkretnego wydarzenia sportowego (np. maraton, zawody)</label>
+                    <label><input type="checkbox" name="goal[]" value="Poprawa zdrowia" id="goalHealthCheck"> Poprawa zdrowia (proszę określić)</label>
+                    <label><input type="checkbox" name="goal[]" value="Inny" id="goalOtherCheck"> Inny (proszę krótko opisać)</label>
+                </div>
+                <div id="goalHealthDetails" class="other-input">
+                    <label for="goal_health_desc">Jakie aspekty zdrowotne chcesz poprawić?</label>
+                    <input type="text" id="goal_health_desc" name="goal_health_desc">
+                </div>
+                <div id="goalOtherDetails" class="other-input">
+                    <label for="goal_other_desc">Opisz swój cel:</label>
+                    <input type="text" id="goal_other_desc" name="goal_other_desc">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Czy masz jakieś konkretne, mierzalne cele, które chcesz osiągnąć w określonym czasie?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="specific_goals" value="Tak" id="specificGoalsYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="specific_goals" value="Nie"> Nie</label>
+                </div>
+                <div id="specificGoalsDetails" class="other-input">
+                    <label for="specific_goals_desc">Opisz swoje konkretne cele:</label>
+                    <textarea id="specific_goals_desc" name="specific_goals_desc"></textarea>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2>Sekcja 3: Stan zdrowia i historia medyczna</h2>
+            <div class="form-group">
+                <label>Czy masz jakiekolwiek problemy zdrowotne lub schorzenia przewlekłe? (np. choroby serca, cukrzyca, astma, nadciśnienie, problemy z tarczycą itp.)</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="health_problems" value="Tak" id="healthProblemsYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="health_problems" value="Nie"> Nie</label>
+                </div>
+                <div id="healthProblemsDetails" class="other-input">
+                    <label for="health_problems_desc">Jakie problemy zdrowotne?</label>
+                    <textarea id="health_problems_desc" name="health_problems_desc"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy przyjmujesz na stałe jakiekolwiek leki?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="medication" value="Tak" id="medicationYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="medication" value="Nie"> Nie</label>
+                </div>
+                <div id="medicationDetails" class="other-input">
+                    <label for="medication_desc">Jakie leki?</label>
+                    <textarea id="medication_desc" name="medication_desc"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy masz jakiekolwiek alergie (np. na leki, pokarmy, pyłki)?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="allergies" value="Tak" id="allergiesYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="allergies" value="Nie"> Nie</label>
+                </div>
+                <div id="allergiesDetails" class="other-input">
+                    <label for="allergies_desc">Jakie alergie?</label>
+                    <textarea id="allergies_desc" name="allergies_desc"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy miałeś/aś w przeszłości jakieś kontuzje, urazy, operacje lub zabiegi?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="injuries" value="Tak" id="injuriesYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="injuries" value="Nie"> Nie</label>
+                </div>
+                <div id="injuriesDetails" class="other-input">
+                    <label for="injuries_desc">Proszę opisać (np. "skręcona kostka 2 lata temu", "operacja kolana 5 lat temu"):</label>
+                    <textarea id="injuries_desc" name="injuries_desc"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy odczuwasz bóle w stawach, mięśniach lub kręgosłupie podczas codziennych czynności lub aktywności fizycznej?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="pain" value="Tak" id="painYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="pain" value="Nie"> Nie</label>
+                </div>
+                <div id="painDetails" class="other-input">
+                    <label for="pain_desc">Proszę opisać (np. "ból kolana przy bieganiu", "ból lędźwi po długim siedzeniu"):</label>
+                    <textarea id="pain_desc" name="pain_desc"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy masz jakąś wadę postawy (np. skolioza, plecy okrągłe)?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="posture_defect" value="Tak" id="postureDefectYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="posture_defect" value="Nie"> Nie</label>
+                </div>
+                <div id="postureDefectDetails" class="other-input">
+                    <label for="posture_defect_desc">Jaką wadę postawy?</label>
+                    <textarea id="posture_defect_desc" name="posture_defect_desc"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy jesteś w ciąży lub karmisz piersią?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="pregnancy" value="Tak"> Tak</label>
+                    <label><input type="radio" name="pregnancy" value="Nie"> Nie</label>
+                    <label><input type="radio" name="pregnancy" value="Dotyczy mężczyzn"> Dotyczy mężczyzn</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Kiedy ostatnio przechodziłeś/aś badania lekarskie (np. morfologia, EKG)?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="medical_checkup" value="W ciągu ostatnich 6 miesięcy" required> W ciągu ostatnich 6 miesięcy</label>
+                    <label><input type="radio" name="medical_checkup" value="W ciągu ostatniego roku"> W ciągu ostatniego roku</label>
+                    <label><input type="radio" name="medical_checkup" value="Dawniej niż rok temu"> Dawniej niż rok temu</label>
+                    <label><input type="radio" name="medical_checkup" value="Nie pamiętam / Nie wykonuję regularnie"> Nie pamiętam / Nie wykonuję regularnie</label>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2>Sekcja 4: Obecna aktywność fizyczna</h2>
+            <div class="form-group">
+                <label>Jak oceniasz swoją obecną aktywność fizyczną?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="current_activity" value="Brak aktywności" required> Brak aktywności (bardzo rzadko, głównie siedzący tryb życia)</label>
+                    <label><input type="radio" name="current_activity" value="Niska aktywność"> Niska aktywność (spacery, sporadyczne krótkie ćwiczenia)</label>
+                    <label><input type="radio" name="current_activity" value="Średnia aktywność"> Średnia aktywność (1-2 razy w tygodniu, umiarkowany wysiłek)</label>
+                    <label><input type="radio" name="current_activity" value="Wysoka aktywność"> Wysoka aktywność (3-5 razy w tygodniu, regularne treningi)</label>
+                    <label><input type="radio" name="current_activity" value="Bardzo wysoka aktywność"> Bardzo wysoka aktywność (codzienne, intensywne treningi)</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="training_frequency">Ile razy w tygodniu jesteś w stanie poświęcić na trening?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="training_frequency" value="0-1 raz" required> 0-1 raz</label>
+                    <label><input type="radio" name="training_frequency" value="2-3 razy"> 2-3 razy</label>
+                    <label><input type="radio" name="training_frequency" value="4-5 razy"> 4-5 razy</label>
+                    <label><input type="radio" name="training_frequency" value="6-7 razy"> 6-7 razy</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="training_duration">Ile czasu możesz poświęcić na jeden trening (łącznie z rozgrzewką i rozciąganiem)?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="training_duration" value="Do 30 minut" required> Do 30 minut</label>
+                    <label><input type="radio" name="training_duration" value="30-60 minut"> 30-60 minut</label>
+                    <label><input type="radio" name="training_duration" value="60-90 minut"> 60-90 minut</label>
+                    <label><input type="radio" name="training_duration" value="Powyżej 90 minut"> Powyżej 90 minut</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Jakie rodzaje aktywności fizycznej preferujesz lub które sprawiają Ci przyjemność? (Możesz wybrać więcej niż jedną odpowiedź)</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="preferred_activity[]" value="Trening siłowy (siłownia, ciężary)"> Trening siłowy (siłownia, ciężary)</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Ćwiczenia w domu (bodyweight, hantelki)"> Ćwiczenia w domu (bodyweight, hantelki)</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Bieganie / Trucht"> Bieganie / Trucht</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Pływanie"> Pływanie</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Joga / Pilates"> Joga / Pilates</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Nordic Walking"> Nordic Walking</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Rower (stacjonarny/outdoor)"> Rower (stacjonarny/outdoor)</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Zajęcia grupowe (np. fitness, zumba)"> Zajęcia grupowe (np. fitness, zumba)</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Sporty zespołowe (np. piłka nożna, koszykówka)"> Sporty zespołowe (np. piłka nożna, koszykówka)</label>
+                    <label><input type="checkbox" name="preferred_activity[]" value="Inne" id="preferredActivityOtherCheck"> Inne (proszę określić)</label>
+                </div>
+                <div id="preferredActivityOtherDetails" class="other-input">
+                    <label for="preferred_activity_desc">Jakie inne aktywności preferujesz?</label>
+                    <input type="text" id="preferred_activity_desc" name="preferred_activity_desc">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy są jakieś ćwiczenia lub formy aktywności, których nie lubisz lub których unikasz?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="disliked_activity" value="Tak" id="dislikedActivityYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="disliked_activity" value="Nie"> Nie</label>
+                </div>
+                <div id="dislikedActivityDetails" class="other-input">
+                    <label for="disliked_activity_desc">Jakie ćwiczenia/aktywności?</label>
+                    <textarea id="disliked_activity_desc" name="disliked_activity_desc"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Gdzie najchętniej trenujesz?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="training_location" value="Siłownia" required> Siłownia</label>
+                    <label><input type="radio" name="training_location" value="W domu"> W domu</label>
+                    <label><input type="radio" name="training_location" value="Na świeżym powietrzu"> Na świeżym powietrzu</label>
+                    <label><input type="radio" name="training_location" value="Basen"> Basen</label>
+                    <label><input type="radio" name="training_location" value="Studio fitness"> Studio fitness</label>
+                    <label><input type="radio" name="training_location" value="Inne" id="trainingLocationOtherCheck"> Inne (proszę określić)</label>
+                </div>
+                <div id="trainingLocationOtherDetails" class="other-input">
+                    <label for="training_location_desc">Jaka inna lokalizacja?</label>
+                    <input type="text" id="training_location_desc" name="training_location_desc">
+                </div>
+            </div>
+
+            <hr>
+
+            <h2>Sekcja 5: Styl życia i nawyki</h2>
+            <div class="form-group">
+                <label for="daily_routine">Jak wygląda Twój typowy dzień pod kątem aktywności? (np. praca siedząca, dużo chodzenia, praca fizyczna)</label>
+                <textarea id="daily_routine" name="daily_routine"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Ile godzin snu potrzebujesz, aby czuć się wypoczętym/ą?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="sleep_hours" value="Mniej niż 6 godzin" required> Mniej niż 6 godzin</label>
+                    <label><input type="radio" name="sleep_hours" value="6-7 godzin"> 6-7 godzin</label>
+                    <label><input type="radio" name="sleep_hours" value="7-8 godzin"> 7-8 godzin</label>
+                    <label><input type="radio" name="sleep_hours" value="Powyżej 8 godzin"> Powyżej 8 godzin</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Jak oceniasz swoją dietę?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="diet_assessment" value="Niezdrowa" required> Niezdrowa (dużo przetworzonej żywności, słodyczy)</label>
+                    <label><input type="radio" name="diet_assessment" value="Raczej niezdrowa"> Raczej niezdrowa (zdarza się, ale staram się ograniczać)</label>
+                    <label><input type="radio" name="diet_assessment" value="Umiarkowana"> Umiarkowana (staram się jeść zdrowo, ale zdarzają się odstępstwa)</label>
+                    <label><input type="radio" name="diet_assessment" value="Raczej zdrowa"> Raczej zdrowa (większość posiłków jest zbilansowana)</label>
+                    <label><input type="radio" name="diet_assessment" value="Bardzo zdrowa"> Bardzo zdrowa (świadome i zbilansowane odżywianie)</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy masz jakieś preferencje żywieniowe lub ograniczenia dietetyczne? (np. wegetarianizm, weganizm, alergie pokarmowe, nietolerancje, diety eliminacyjne)</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="dietary_restrictions" value="Tak" id="dietaryRestrictionsYes"> Tak (proszę określić)</label>
+                    <label><input type="radio" name="dietary_restrictions" value="Nie"> Nie</label>
+                </div>
+                <div id="dietaryRestrictionsDetails" class="other-input">
+                    <label for="dietary_restrictions_desc">Jakie preferencje/ograniczenia?</label>
+                    <textarea id="dietary_restrictions_desc" name="dietary_restrictions_desc"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Czy palisz papierosy lub e-papierosy?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="smoking" value="Tak" required> Tak</label>
+                    <label><input type="radio" name="smoking" value="Nie"> Nie</label>
+                    <label><input type="radio" name="smoking" value="Paliłem/am w przeszłości"> Paliłem/am w przeszłości</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Jak często spożywasz alkohol?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="alcohol" value="Wcale" required> Wcale</label>
+                    <label><input type="radio" name="alcohol" value="Sporadycznie"> Sporadycznie (raz na kilka tygodni/miesięcy)</label>
+                    <label><input type="radio" name="alcohol" value="1-2 razy w tygodniu"> 1-2 razy w tygodniu</label>
+                    <label><input type="radio" name="alcohol" value="Częściej niż 2 razy w tygodniu"> Częściej niż 2 razy w tygodniu</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Jak radzisz sobie ze stresem?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="stress_management" value="Dobrze" required> Dobrze</label>
+                    <label><input type="radio" name="stress_management" value="Umiarkowanie"> Umiarkowanie</label>
+                    <label><input type="radio" name="stress_management" value="Raczej słabo"> Raczej słabo</label>
+                    <label><input type="radio" name="stress_management" value="Bardzo słabo"> Bardzo słabo</label>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2>Sekcja 6: Dodatkowe informacje</h2>
+            <div class="form-group">
+                <label for="additional_info">Czy jest coś jeszcze, co chciałbyś/chciałabyś mi powiedzieć o swoim zdrowiu, stylu życia, obawach lub oczekiwaniach, co pomoże mi w ułożeniu planu treningowego?</label>
+                <textarea id="additional_info" name="additional_info"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="motivation">Co motywuje Cię do działania?</label>
+                <textarea id="motivation" name="motivation"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="demotivation">Co może Cię zdemotywować lub utrudnić Ci realizację planu?</label>
+                <textarea id="demotivation" name="demotivation"></textarea>
+            </div>
+
+            <div class="button-container">
+                <button type="submit">Wyślij ankietę</button>
+            </div>
+            <div id="responseMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        // Funkcja do pokazywania/ukrywania pól "Inny"
+        function setupOtherInputToggle(triggerId, targetId) {
+            const trigger = document.getElementById(triggerId);
+            const targetDiv = document.getElementById(targetId);
+            if (trigger && targetDiv) {
+                trigger.addEventListener('change', function() {
+                    if (this.checked || (this.type === 'radio' && this.value === 'Tak') || (this.type === 'radio' && this.value === 'Inne')) {
+                        targetDiv.style.display = 'block';
+                        targetDiv.querySelectorAll('input, textarea').forEach(el => el.setAttribute('required', 'required'));
+                    } else {
+                        targetDiv.style.display = 'none';
+                        targetDiv.querySelectorAll('input, textarea').forEach(el => {
+                            el.removeAttribute('required');
+                            el.value = '';
+                        });
+                    }
+                });
+                // Initial check for radio buttons that might be pre-selected or change on form reset
+                if (trigger.type === 'radio' && trigger.checked && (trigger.value === 'Tak' || trigger.value === 'Inne')) {
+                    targetDiv.style.display = 'block';
+                    targetDiv.querySelectorAll('input, textarea').forEach(el => el.setAttribute('required', 'required'));
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obsługa pól "Inny" / "Proszę określić"
+            setupOtherInputToggle('goalHealthCheck', 'goalHealthDetails');
+            setupOtherInputToggle('goalOtherCheck', 'goalOtherDetails');
+            setupOtherInputToggle('specificGoalsYes', 'specificGoalsDetails');
+            setupOtherInputToggle('healthProblemsYes', 'healthProblemsDetails');
+            setupOtherInputToggle('medicationYes', 'medicationDetails');
+            setupOtherInputToggle('allergiesYes', 'allergiesDetails');
+            setupOtherInputToggle('injuriesYes', 'injuriesDetails');
+            setupOtherInputToggle('painYes', 'painDetails');
+            setupOtherInputToggle('postureDefectYes', 'postureDefectDetails');
+            setupOtherInputToggle('preferredActivityOtherCheck', 'preferredActivityOtherDetails');
+            setupOtherInputToggle('dislikedActivityYes', 'dislikedActivityDetails');
+            setupOtherInputToggle('trainingLocationOtherCheck', 'trainingLocationOtherDetails');
+            setupOtherInputToggle('dietaryRestrictionsYes', 'dietaryRestrictionsDetails');
+
+
+            const form = document.getElementById('healthTrainingForm');
+            const responseMessageDiv = document.getElementById('responseMessage');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Zatrzymaj domyślne przesyłanie formularza
+                responseMessageDiv.textContent = 'Wysyłanie ankiety...';
+                responseMessageDiv.style.color = 'blue';
+
+                const formData = new FormData(form);
+                const data = {};
+                for (let [key, value] of formData.entries()) {
+                    if (key.endsWith('[]')) { // Obsługa checkboxów (wiele wartości dla tej samej nazwy)
+                        const cleanKey = key.slice(0, -2); // Usuń '[]'
+                        if (!data[cleanKey]) {
+                            data[cleanKey] = [];
+                        }
+                        data[cleanKey].push(value);
+                    } else {
+                        data[key] = value;
+                    }
+                }
+
+                // Tutaj będziesz musiał/a zintegrować się z usługą do wysyłki e-maili
+                // Poniższy kod jest tylko przykładem wykorzystującym usługę Formspree.io, która nie wymaga backendu
+                // Zastąp "YOUR_FORMSPREE_ENDPOINT" swoim adresem URL z Formspree
+                fetch('https://formspree.io/f/https://formspree.io/f/xldbyedn', { // Zmień to!
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        responseMessageDiv.textContent = 'Ankieta została pomyślnie wysłana!';
+                        responseMessageDiv.style.color = 'green';
+                        form.reset(); // Wyczyść formularz po wysłaniu
+                        // Ukryj pola "Inny" po zresetowaniu
+                        document.querySelectorAll('.other-input').forEach(div => {
+                            div.style.display = 'none';
+                            div.querySelectorAll('input, textarea').forEach(el => el.removeAttribute('required'));
+                        });
+                    } else {
+                        responseMessageDiv.textContent = 'Wystąpił błąd podczas wysyłania ankiety. Spróbuj ponownie.';
+                        responseMessageDiv.style.color = 'red';
+                        return response.json().then(errorData => {
+                            console.error('Błąd Formspree:', errorData);
+                        });
+                    }
+                })
+                .catch(error => {
+                    responseMessageDiv.textContent = 'Błąd sieci lub serwera. Spróbuj ponownie.';
+                    responseMessageDiv.style.color = 'red';
+                    console.error('Błąd:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
